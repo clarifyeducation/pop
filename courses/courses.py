@@ -71,18 +71,18 @@ def fix_courses(courses):
                     print 'warning(%s): no meetings for section %s, removing section' % (course.name, section.crn)
                     semester.sections.remove(section)
                 for meeting in section.meetings:
-                    meeting.type = meeting.type \
-                        .replace('Laboratory', 'Lab') \
-                        .replace('Arranged (Instructor)', 'Arranged') \
-                        .replace('Conference/Discussion', 'Conference')
+                    meeting.type = meeting.type.replace('Laboratory', 'Lab')
+                        #.replace('Laboratory', 'Lab') \
+                        #.replace('Arranged (Instructor)', 'Arranged') \
+                        #.replace('Conference/Discussion', 'Conference')
                     meeting.time = meeting.time \
                         .replace(':00', '') \
                         .replace(' am', 'am') \
                         .replace(' pm', 'pm')
-                    meeting.where = meeting.where \
-                        .replace('Watson (CIT) Center', 'CIT') \
-                        .replace('Salomon Center', 'Salomon') \
-                        .replace('To Be Determined', 'TBA')
+                    meeting.where = meeting.where.replace('To Be Determined', 'TBA')
+                        #.replace('Watson (CIT) Center', 'CIT') \
+                        #.replace('Salomon Center', 'Salomon') \
+                        #.replace('To Be Determined', 'TBA')
                     meeting.instructors = ', '.join(
                         re.sub(' \w\.|', '', i.replace('(P)', '')).strip()
                         for i in meeting.instructors.split(','))
@@ -133,12 +133,13 @@ def courses_to_json(courses):
                     json_section['xlist'] = section.xlist_data
                 json_sections.setdefault(section_type, []).append(json_section)
                 for meeting in section.meetings:
-                    json_meetings.append({
-                        'days': meeting.days,
-                        'time': meeting.time,
-                        'where': meeting.where,
-                        'instructors': meeting.instructors
-                    })
+                    if meeting.type != 'Final Exam':
+                        json_meetings.append({
+                            'days': meeting.days,
+                            'time': meeting.time,
+                            'where': meeting.where,
+                            'instructors': meeting.instructors
+                        })
             json_semesters[semester.name] = json_sections
         json_courses.append({
             'name': course.name,

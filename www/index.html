@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html><head>
-  <title>Soda</title>
+  <title>Pop</title>
+  <meta name="description" content="The fastest course browser at Illinois Tech" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
   <script src="jquery.color.js"></script>
@@ -33,7 +34,7 @@
       <td class="spacer"></td>
       <td>
         <b>Other:</b>
-        <br><input type="checkbox" id="show-links" /> <label for="show-links">Show links (like Critical Review)</label>
+        <!-- <br><input type="checkbox" id="show-links" /> <label for="show-links">Show links (like Critical Review)</label> -->
         <br><input type="checkbox" checked="true" id="collapse-sim" /> <label for="collapse-sim">Collapse five or more similar sections</label>
         <br><input type="checkbox" checked="true" id="hide-no-sections" /> <label for="hide-no-sections">Hide courses without sections</label>
       </td>
@@ -49,12 +50,23 @@
   <div id="options-spacer"></div>
 
   <div id="content">
-    <h1>Soda</h1>
-    <p id="tagline">A course browser for Brown University</p>
+    <h1>Pop</h1>
+    <p id="tagline">A course browser for Illinois Tech</p>
     <script type="text/javascript">document.write('<p id="loading">Loading...</p>');</script>
-    <noscript><p id="loading">Soda needs JavaScript to work. Please enable JavaScript and click refresh.</p></noscript>
+    <noscript><p id="loading">Pop needs JavaScript to work. Please enable JavaScript and click refresh.</p></noscript>
   </div>
 
   <script type="text/javascript" src="courses.js"></script>
   <script type="text/javascript" src="soda.js"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-58509817-3', 'auto');
+    ga('send', 'pageview');
+
+  </script>
 </body></html>

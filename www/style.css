@@ -9,7 +9,8 @@ body {
 
 body, input {
   margin: 0;
-  font: 11px/14px Tahoma, Arial, sans-serif;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 0.8rem;
 }
 
 table {
