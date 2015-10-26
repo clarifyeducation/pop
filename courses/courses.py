@@ -18,11 +18,18 @@ class Semester:
 
 class Section:
     def __init__(self):
+        self.special_title = ''
         self.crn = 0
         self.levels = ''
         self.xlist_data = ''
         self.registration_dates = ''
         self.meetings = [] # list of Meeting objects
+        self.capacity = 0
+        self.enrolled = 0
+        self.remaining = 0
+        self.waitlist_capacity = 0
+        self.waitlist_enrolled = 0
+        self.waitlist_remaining = 0
 
 class Meeting:
     def __init__(self):
@@ -127,6 +134,10 @@ def courses_to_json(courses):
                 json_meetings = []
                 json_section = {
                     'crn': section.crn,
+                    'special_title': section.special_title,
+                    'levels': section.levels,
+                    'capacity': section.capacity,
+                    'enrolled': section.enrolled,
                     'meetings': json_meetings
                 }
                 if section_type == 'Crosslist':

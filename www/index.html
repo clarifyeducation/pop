@@ -2,6 +2,7 @@
 <html><head>
   <title>Pop</title>
   <meta name="description" content="The fastest course browser at Illinois Tech" />
+  <meta name="viewport" content="width=750" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
   <script src="jquery.color.js"></script>
@@ -34,7 +35,7 @@
       <td class="spacer"></td>
       <td>
         <b>Other:</b>
-        <!-- <br><input type="checkbox" id="show-links" /> <label for="show-links">Show links (like Critical Review)</label> -->
+        <br><input type="checkbox" id="show-links" checked="true" /> <label for="show-links">Show links (like to course catalog)</label>
         <br><input type="checkbox" checked="true" id="collapse-sim" /> <label for="collapse-sim">Collapse five or more similar sections</label>
         <br><input type="checkbox" checked="true" id="hide-no-sections" /> <label for="hide-no-sections">Hide courses without sections</label>
       </td>
@@ -52,6 +53,7 @@
   <div id="content">
     <h1>Pop</h1>
     <p id="tagline">A course browser for Illinois Tech</p>
+    <h3 id="mobilenote">Hey! We're not yet optimized for smartphones. For the best experience view the site on a laptop or desktop. Thanks!</h3>
     <script type="text/javascript">document.write('<p id="loading">Loading...</p>');</script>
     <noscript><p id="loading">Pop needs JavaScript to work. Please enable JavaScript and click refresh.</p></noscript>
   </div>

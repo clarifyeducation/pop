@@ -5,7 +5,7 @@ var search = {
   _equalsRegex: null,
   _startsWithRegex: null,
   _matchesToBeAdded: [],
-  _defaultContent: '<h1>Pop</h1><p id="tagline">A course browser for Illinois Tech</p><p>Pop replaces Banner\'s complex interface with one simple search box, except there\'s no search button because searching is instant. It searches all courses in Fall 2015 and Spring 2016 (coming soon!), just type something in the orange bar to get started! You can type pretty much anything, including:</p><ul><li>CRNs: <a class="example" href="javascript:search.go(\'14817\')">14817</a></li><li>Places: <a class="example" href="javascript:search.go(\'siegel\')">siegel</a></li><li>Professors: <a class="example" href="javascript:search.go(\'twombly\')">twombly</a></li><li>Semesters: <a class="example" href="javascript:search.go(\'spring\')">spring</a></li><li>Departments: <a class="example" href="javascript:search.go(\'itm\')">itm</a></li><li>Course titles: <a class="example" href="javascript:search.go(\'comp graphics\')">comp graphics</a></li><li>Days of the week: <a class="example" href="javascript:search.go(\'mwf\')">mwf</a></li><li>Course descriptions: <a class="example" href="javascript:search.go(\'leadership\')">leadership</a></li><li>Course abbreviations: <a class="example" href="javascript:search.go(\'econ211\')">econ211</a></li></ul><ul><li>Any combination of the above: <a class="example" href="javascript:search.go(\'hist comp mw\')">hist comp mw</a></li></ul><p>Pop runs best in Chrome and Safari (but also works in Firefox). The original interface, called "Soda", was made by <a href="http://madebyevan.com/">Evan Wallace</a> at Brown University in 2010; <a href="https://tendian.io/">Eric Tendian</a> adapted the website for the Illinois Institute of Technology in 2015.</p>',
+  _defaultContent: '<h1>Pop</h1><p id="tagline">A course browser for Illinois Tech</p><h3 id="mobilenote">Hey! We\'re not yet optimized for smartphones. For the best experience view the site on a laptop or desktop. Thanks!</h3><p>Pop replaces Banner\'s complex interface with one simple search box, except there\'s no search button because searching is instant. It searches all courses in Fall 2015 and Spring 2016 (coming soon!), just type something in the orange bar to get started! You can type pretty much anything, including:</p><ul><li>CRNs: <a class="example" href="javascript:search.go(\'14817\')">14817</a></li><li>Places: <a class="example" href="javascript:search.go(\'siegel\')">siegel</a></li><li>Professors: <a class="example" href="javascript:search.go(\'twombly\')">twombly</a></li><li>Semesters: <a class="example" href="javascript:search.go(\'spring\')">spring</a></li><li>Departments: <a class="example" href="javascript:search.go(\'itm\')">itm</a></li><li>Course titles: <a class="example" href="javascript:search.go(\'comp graphics\')">comp graphics</a></li><li>Days of the week: <a class="example" href="javascript:search.go(\'mwf\')">mwf</a></li><li>Course descriptions: <a class="example" href="javascript:search.go(\'leadership\')">leadership</a></li><li>Course abbreviations: <a class="example" href="javascript:search.go(\'econ211\')">econ211</a></li></ul><ul><li>Any combination of the above: <a class="example" href="javascript:search.go(\'hist comp mw\')">hist comp mw</a></li></ul><p>Pop runs best in Chrome and Safari (but also works in Firefox). The original interface, called "Soda", was made by <a href="http://madebyevan.com/">Evan Wallace</a> at Brown University in 2010; <a href="https://tendian.io/">Eric Tendian</a> adapted the website for the Illinois Institute of Technology in 2015.</p>',
 
   load: function() {
     function checkForChange() {
@@ -80,6 +80,8 @@ var search = {
     if (section.meetings.length == 0)
       return section.type;
     var text = section.type;
+    if (section.special_title)
+      text = section.special_title + ' ~ ' + text;
     var instructors = section.meetings[0].instructors;
     var hasDifferentInstructors = false;
     for (var i = 0; i < section.meetings.length; i++) {
@@ -204,8 +206,7 @@ var search = {
         html += '<h2>' + name + ': ' + title + '</h2>';
         if (options.shouldShowLinks) {
           html += '<p style="text-align:center;">';
-          if (course.name.indexOf('CSCI') == 0) html += ' <a href="http://cs.brown.edu/courses/' + course.name.toLowerCase().replace(/ /g, '') + '/" target="_blank" title="Opens in a new window">View course website</a> |';
-          html += ' <a href="http://www.thecriticalreview.org/cr_xml.php?action=browse&quicksearch=' + course.name.replace(/ /g, '+') + '" target="_blank" title="Opens in a new window">Search the Critical Review</a>';
+          html += ' <a href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201610&subj_code_in=' + course.name.split(' ')[0] + '&crse_numb_in=' +course.name.split(' ')[1] + '" target="_blank" title="Opens in a new window">View in course catalog</a>';
           html += '</p>';
         }
         html += '<p>' + description + '</p>';

@@ -481,3 +481,15 @@ a.course:hover .match {
 .course .spacer {
   line-height: 10px;
 }
+
+/* MOBILE EXPERIENCE NOTE - TEMPORARY */
+h3#mobilenote {
+  color: #F00;
+  font-style: italic;
+}
+@media screen and (min-width: 800px) {
+  h3#mobilenote {
+    display: none;
+  }
+}
+
