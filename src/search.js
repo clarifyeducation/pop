@@ -206,7 +206,7 @@ var search = {
         html += '<h2>' + name + ': ' + title + '</h2>';
         if (options.shouldShowLinks) {
           html += '<p style="text-align:center;">';
-          html += ' <a href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201610&subj_code_in=' + course.name.split(' ')[0] + '&crse_numb_in=' + course.name.split(' ')[1] + '" target="_blank" title="Opens in a new window">View in course catalog</a> / <strong><a href="./coursetasting.html" target="_blank">Find others who took this course</a></strong>';
+          html += ' <a href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201620&subj_code_in=' + course.name.split(' ')[0] + '&crse_numb_in=' + course.name.split(' ')[1] + '" target="_blank" title="Opens in a new window">View in course catalog</a> / <strong><a href="./coursetasting.html" target="_blank">Find others who took this course</a></strong>';
           html += '</p>';
         }
         html += '<p>' + description + '</p>';
