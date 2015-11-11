@@ -1,6 +1,7 @@
 var options = {
   courseDetail: 2,
   shouldShowLinks: true,
+  shouldSearchAttributes: true,
   shouldSearchSections: true,
   shouldSearchDescriptions: true,
   shouldCollapseSimilarSections: true,

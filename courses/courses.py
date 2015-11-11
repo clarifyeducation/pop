@@ -156,6 +156,7 @@ def courses_to_json(courses):
             'name': course.name,
             'title': course.title,
             'description': course.description,
+            'attributes': course.attributes,
             'sections': json_semesters
         })
     return {

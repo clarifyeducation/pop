@@ -80,7 +80,7 @@ var search = {
     if (section.meetings.length == 0)
       return section.type;
     var text = section.type;
-    if (section.special_title)
+    if (section.special_title && section.special_title != 'Laboratory')
       text = section.special_title + ' ~ ' + text;
     var instructors = section.meetings[0].instructors;
     var hasDifferentInstructors = false;
@@ -195,6 +195,7 @@ var search = {
     var html = '';
     var name = this._highlightQuery(course.name);
     var title = this._highlightQuery(course.title);
+    var attributes = this._highlightQuery(course.attributes);
     if (detail == 1) {
       html += '<h4><b>' + name + '</b> ' + title + '</h4>';
     } else {
@@ -210,6 +211,7 @@ var search = {
           html += '</p>';
         }
         html += '<p>' + description + '</p>';
+        html += '<p><em>' + attributes + '</em></p>';
 
         // pre-expand the text if we matched a CRN, since it's the only thing there and we don't need to worry about crowding the results
         var id = this._nameToID(course.name);
@@ -309,6 +311,7 @@ var search = {
         if (!hasSections) continue;
       }
       if (options.shouldSearchDescriptions) text += ' ' + course.description;
+      if (options.shouldSearchAttributes) text += ' ' + course.attributes;
       if (options.shouldSearchSections) {
         for (var semester in course.sections) {
           text += ' ' + semester;
