@@ -5,7 +5,6 @@ var search = {
   _equalsRegex: null,
   _startsWithRegex: null,
   _matchesToBeAdded: [],
-  _defaultContent: '<h1>Pop</h1><p id="tagline">A course browser for Illinois Tech</p><h3 id="mobilenote">Hey! We\'re not yet optimized for smartphones. For the best experience view the site on a laptop or desktop. Thanks!</h3><p>Pop replaces Banner\'s complex interface with one simple search box, except there\'s no search button because searching is instant. It searches all courses available for the Spring 2016 semester, just type something in the orange bar to get started! You can type pretty much anything, including:</p><ul><li>CRNs: <a class="example" href="javascript:search.go(\'20013\')">20013</a></li><li>Places: <a class="example" href="javascript:search.go(\'siegel\')">siegel</a></li><li>Professors: <a class="example" href="javascript:search.go(\'twombly\')">twombly</a></li><li>Semesters: <a class="example" href="javascript:search.go(\'spring\')">spring</a></li><li>Departments: <a class="example" href="javascript:search.go(\'itm\')">itm</a></li><li>Course titles: <a class="example" href="javascript:search.go(\'comp graphics\')">comp graphics</a></li><li>Days of the week: <a class="example" href="javascript:search.go(\'mwf\')">mwf</a></li><li>Course descriptions: <a class="example" href="javascript:search.go(\'leadership\')">leadership</a></li><li>Course abbreviations: <a class="example" href="javascript:search.go(\'econ211\')">econ211</a></li></ul><ul><li>Any combination of the above: <a class="example" href="javascript:search.go(\'hist comp mw\')">hist comp mw</a></li></ul><p>Pop runs best in Chrome and Safari (but also works in Firefox). The original interface, called "Soda", was made by <a href="http://madebyevan.com/">Evan Wallace</a> at Brown University in 2010; <a href="https://tendian.io/">Eric Tendian</a> adapted the website for the Illinois Institute of Technology in 2015.</p>',
 
   load: function() {
     function checkForChange() {
@@ -17,7 +16,7 @@ var search = {
     $('#search').val('');
     $('#search').keydown(checkForChange);
     $('#search').focus(checkForChange);
-    $('#content').html(this._defaultContent);
+    $('#content #defaultcontent').show();
     setInterval(function() {
       search._updateResults();
     }, 50);
@@ -231,7 +230,8 @@ var search = {
     // just show help if they have an empty query
     if (!this._compileRegexForQuery(query)) {
       this._matchesToBeAdded = [];
-      $('#content').html(this._defaultContent);
+      $('#content #dynamiccontent').html('');
+      $('#content #defaultcontent').show();
       return;
     }
 
@@ -246,8 +246,9 @@ var search = {
     });
 
     // set up result streaming and get the initial batch
+    $('#content #defaultcontent').hide();
     var len = this._matchesToBeAdded.length;
-    $('#content').html('<p id="footer">' + (len == 1 ? '1 result' : len + ' results') + '</p>');
+    $('#content #dynamiccontent').html('<p id="footer">' + (len == 1 ? '1 result' : len + ' results') + '</p>');
     this._updateResults();
   },
 
