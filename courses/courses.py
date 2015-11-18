@@ -138,6 +138,7 @@ def courses_to_json(courses):
                     'levels': section.levels,
                     'capacity': section.capacity,
                     'enrolled': section.enrolled,
+                    'available': section.remaining,
                     'meetings': json_meetings
                 }
                 if section_type == 'Crosslist':

@@ -199,6 +199,33 @@ var cart = {
     $('#search').focus();
   },
 
+  checkCRNs: function() {
+    if ($('#register-section a').hasClass('loading') || Object.keys(this._semesterCRNs[this._currentSemester]).length==0) return;
+    $('#register-section a').text($('#register-section a').text().replace('Check ', 'Checking '));
+    $('#register-section a').addClass('loading');
+    for (var i in this._semesterCRNs[this._currentSemester]) {
+      for (var j = 0; j < this._semesterCRNs[this._currentSemester][i].length; j++) {
+        $.get('https://cors-anywhere.herokuapp.com/https://my102.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201620&crn_in='+this._semesterCRNs[this._currentSemester][i][j], function (data, status, jqxhr) {
+          var crn = jqxhr.responseURL.match(/(.*?)crn_in=(.*)/)[2];
+          var seats = data.match(/<TR>\n<TH CLASS="ddlabel" scope="row" ><SPAN class="fieldlabeltext">Seats<\/SPAN><\/TH>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<\/TR>/);
+          var waitlist = data.match(/<TR>\n<TH CLASS="ddlabel" scope="row" ><SPAN class="fieldlabeltext">Waitlist Seats<\/SPAN><\/TH>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<\/TR>/);
+          if (Number.parseInt(seats[3])===0) {
+            $('strong.fullalert').remove();
+            $('a[id$="-cart-'+crn+'-link"]').parents('.section').append(' <strong class="fullalert">(FULL - ' + waitlist[2] + ' on waitlist)</strong>');
+            $('a[id$="-cart-'+crn+'-link"]').parents('.cart-course').css('background','#FAA');
+          } else {
+            $('a[id$="-cart-'+crn+'-link"]').parents('.cart-course').css('background','#AFA');
+          }
+          $('a[id$="-cart-'+crn+'-link"]').parents('.cart-course').addClass('checked');
+          if ($('.cart-course.checked').length == $('.cart-course').length) {
+            $('#register-section a').text($('#register-section a').text().replace('Checking ', 'Check '));
+            $('#register-section a').removeClass('loading');
+          }
+        });
+      }
+    }
+  },
+
   _updateList: function() {
     var html = '';
     var flashID = '';

@@ -176,9 +176,45 @@ ul {
   color: #7F7F7F;
 }
 
+#register-section {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  right: 20px;
+  bottom: 95%;
+  color: #000;
+}
+
+#register-section a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.25em;
+  }
+}
+
 #cart-section {
   position: absolute;
-  top: 20px;
+  top: 5%;
   left: 20px;
   right: 20px;
   bottom: 60%;

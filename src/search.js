@@ -82,6 +82,7 @@ var search = {
     var text = section.type;
     if (section.special_title && section.special_title != 'Laboratory')
       text = section.special_title + ' ~ ' + text;
+    text = section.available + ' seats avail. | ' + text;
     var instructors = section.meetings[0].instructors;
     var hasDifferentInstructors = false;
     for (var i = 0; i < section.meetings.length; i++) {
