@@ -36,7 +36,7 @@ var schedule = {
         for (var k = 0; k < meeting.days.length; k++) {
           var block = {
             'html': info.course.name,
-            'day': 'SMTWRFU'.indexOf(meeting.days[k]),
+            'day': 'UMTWRFS'.indexOf(meeting.days[k]),
             'color': color,
             'start': start,
             'end': end
