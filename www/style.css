@@ -369,6 +369,39 @@ ul {
   border-top: 1px solid #CFCFCF;
 }
 
+/* Start day names */
+#schedule tr:first-child td::before {
+  position: absolute;
+  padding-left: 5px;
+}
+#schedule tr:first-child td.weekend:first-child::before {
+  content: 'Sunday';
+}
+#schedule tr:first-child td.weekend:last-child::before {
+  content: 'Saturday';
+}
+#schedule tr:first-child td:not(.weekend):nth-child(1)::before,
+#schedule tr:first-child td.weekend + td:not(.weekend):nth-child(2)::before {
+  content: 'Monday';
+}
+#schedule tr:first-child td:not(.weekend):nth-child(2)::before,
+#schedule tr:first-child td.weekend ~ td:not(.weekend):nth-child(3)::before {
+  content: 'Tuesday';
+}
+#schedule tr:first-child td:not(.weekend):nth-child(3)::before,
+#schedule tr:first-child td.weekend ~ td:not(.weekend):nth-child(4)::before {
+  content: 'Wednesday';
+}
+#schedule tr:first-child td:not(.weekend):nth-child(4)::before,
+#schedule tr:first-child td.weekend ~ td:not(.weekend):nth-child(5)::before {
+  content: 'Thursday';
+}
+#schedule tr:first-child td:not(.weekend):nth-child(5)::before,
+#schedule tr:first-child td.weekend ~ td:not(.weekend):nth-child(6)::before {
+  content: 'Friday';
+}
+/* End day names */
+
 .block {
   padding: 2px 0 0 4px;
   overflow: hidden;
