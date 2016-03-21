@@ -1,0 +1,221 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="The fastest course browser at Illinois Tech">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pop</title>
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8">
+          <section id="search-form">
+            <div class="input-group">
+              <input type="text" class="form-control" id="search" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">Go!</button>
+                <a class="btn btn-default" role="button" data-toggle="collapse" href="#options" aria-expanded="false" aria-controls="options">
+                  Options
+                </a>
+              </span>
+            </div>
+            <div class="row collapse" id="options">
+              <div class="col-md-3 options">
+                <div class="checkbox">
+                  <strong>Search in:</strong>
+                  <label>
+                    <input type="checkbox" id="search-desc" checked> Course descriptions
+                  </label>
+                  <label>
+                    <input type="checkbox" id="search-sect" checked> Section descriptions
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3 options">
+                <div class="radio">
+                  <strong>Result format:</strong><br>
+                  <label>
+                    <input type="radio" name="result-format" id="result-sm"> Just title
+                  </label>
+                  <label>
+                    <input type="radio" name="result-format" id="result-med"> Title and description
+                  </label>
+                  <label>
+                    <input type="radio" name="result-format" id="result-big" checked> Everything
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-4 options">
+                <div class="checkbox">
+                  <strong>Other:</strong>
+                  <label>
+                    <input type="checkbox" id="show-links" checked> Show links (like to course catalog)
+                  </label>
+                  <label>
+                    <input type="checkbox" id="collapse-sim" checked> Collapse five or more similar sections
+                  </label>
+                  <label>
+                    <input type="checkbox" id="hide-no-sections" checked> Hide courses without sections
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="search-results">
+            <div id="defaultcontent" class="hidden">
+              <h1>Pop</h1>
+              <h2>A course browser for Illinois Tech</h2>
+              <p>
+                Pop replaces Banner's complex interface with one simple search box, except there's no search button
+                because searching is instant. It searches all courses available for the Spring 2016 semester, just
+                type something in the orange bar to get started! You can type pretty much anything, including:
+              </p>
+              <ul>
+                <li>CRNs: <a class="example" href="javascript:search.go('20013')">20013</a></li>
+                <li>Places: <a class="example" href="javascript:search.go('siegel')">siegel</a></li>
+                <li>Professors: <a class="example" href="javascript:search.go('twombly')">twombly</a></li>
+                <li>Semesters: <a class="example" href="javascript:search.go('spring')">spring</a></li>
+                <li>Departments: <a class="example" href="javascript:search.go('itm')">itm</a></li>
+                <li>Course titles: <a class="example" href="javascript:search.go('comp graphics')">comp graphics</a></li>
+                <li>Days of the week: <a class="example" href="javascript:search.go('mwf')">mwf</a></li>
+                <li>Course descriptions: <a class="example" href="javascript:search.go('leadership')">leadership</a></li>
+                <li>Course abbreviations: <a class="example" href="javascript:search.go('econ211')">econ211</a></li>
+                <li>Any combination of the above: <a class="example" href="javascript:search.go('hist comp mw')">hist comp mw</a></li>
+              </ul>
+            </div>
+
+            <div id="results">
+              <div class="course panel panel-default" id="itm301">
+                <div class="panel-heading">
+                  <h4 class="panel-title text-center"><mark>ITM</mark> 301: Introduction to Contemporary Operating Systems and Hardware I</h4>
+                </div>
+                <div class="panel-body">
+                  <p>Students study the basics of computer architecture and learn to use a contemporary operating system. Hardware requirements, hardware components, software compatibility, and system installation topics are covered along with post-installation, storage, security and system diagnosis, and repair. Topics also include discussion of current and future technology industry trends.</p>
+                  <p><span class="label label-default">Standard Tuition Rate</span></p>
+                  <table class="sections table table-hover">
+                    <caption>Sections (Summer 2016)</caption>
+                    <thead>
+                      <tr>
+                        <th>CRN</th>
+                        <th>Type</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Instructor(s)</th>
+                        <th>Enrolled</th>
+                        <th>Waitlisted</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> 28254</a></td>
+                        <td>Lecture/Lab</td>
+                        <td>TR from 6pm to 9:35pm</td>
+                        <td>Tech Park - South Building 2033</td>
+                        <td>Vasilios Pappademetriou</td>
+                        <td><strong>22</strong>/28</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td><a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> 28124</a></td>
+                        <td>Lecture/Lab</td>
+                        <td>TR from 6pm to 9:35pm</td>
+                        <td>Tech Park - South Building 2033</td>
+                        <td>Vasilios Pappademetriou</td>
+                        <td><strong>22</strong>/28</td>
+                        <td>0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="panel-footer">
+                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201620&amp;subj_code_in=ITM&amp;crse_numb_in=301" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
+                  <a class="btn btn-info btn-sm" href="#" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
+                  <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="ITM301"><input type="hidden" name="instructor[]" value="BLANK"></form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-lg-4">
+          <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div>
+          <div id="cart">
+            <h4>Cart</h4>
+            <ul class="list-group">
+              <p class="hidden">No saved courses for Summer 2016 (View only)</p>
+              <li class="list-group-item">ITM 301: Introduction to Contemporary Operating Systems and Hardware I</li>
+            </ul>
+          </div>
+          <div class="schedule-container">
+            <h4>Your Schedule</h4>
+            <div id="schedule"></div>
+          </div>
+          <div id="semesters">
+            <!-- switch between semesters here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Copyright &copy; 2016 Clarify, made by <a href="https://tendian.io/">Eric Tendian</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
