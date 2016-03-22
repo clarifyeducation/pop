@@ -104,15 +104,17 @@
             </div>
 
             <div id="results">
-              <div class="course panel panel-default" id="itm301">
+              <script id="courseTemplate" type="text/x-jsrender">
+              <div class="course panel panel-default">
                 <div class="panel-heading">
-                  <h4 class="panel-title text-center"><mark>ITM</mark> 301: Introduction to Contemporary Operating Systems and Hardware I</h4>
+                  <h4 class="panel-title text-center">{{> name}}: {{> title}}</h4>
                 </div>
                 <div class="panel-body">
-                  <p>Students study the basics of computer architecture and learn to use a contemporary operating system. Hardware requirements, hardware components, software compatibility, and system installation topics are covered along with post-installation, storage, security and system diagnosis, and repair. Topics also include discussion of current and future technology industry trends.</p>
-                  <p><span class="label label-default">Standard Tuition Rate</span></p>
+                  <p>{{> description}}</p>
+                  <p>{{if credit_hours.length}}<span class="label label-primary">{{hideDecimal:credit_hours}} credit(s)</span>{{/if}} {{for attributes}}<span class="label label-info">{{> #data}}</span> {{/for}}</p>
+                  {{for semesters}}
                   <table class="sections table table-hover">
-                    <caption>Sections (Summer 2016)</caption>
+                    <caption>Sections ({{> name}})</caption>
                     <thead>
                       <tr>
                         <th>CRN</th>
@@ -125,33 +127,29 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {{for sections}}
+                      <!-- TODO: we want to show multiple meeting times! -->
                       <tr>
-                        <td><a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> 28254</a></td>
-                        <td>Lecture/Lab</td>
-                        <td>TR from 6pm to 9:35pm</td>
-                        <td>Tech Park - South Building 2033</td>
-                        <td>Vasilios Pappademetriou</td>
-                        <td><strong>22</strong>/28</td>
-                        <td>0</td>
+                        <td><a href="#" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a></td>
+                        <td>{{> meetings[0].type}}</td>
+                        <td>{{> meetings[0].days}} {{> meetings[0].time}}</td>
+                        <td>{{> meetings[0].where}}</td>
+                        <td>{{> meetings[0].instructors}}</td>
+                        <td><strong>{{> enrolled}}</strong>/{{> capacity}}</td>
+                        <td>{{> waitlist_enrolled}}</td>
                       </tr>
-                      <tr>
-                        <td><a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> 28124</a></td>
-                        <td>Lecture/Lab</td>
-                        <td>TR from 6pm to 9:35pm</td>
-                        <td>Tech Park - South Building 2033</td>
-                        <td>Vasilios Pappademetriou</td>
-                        <td><strong>22</strong>/28</td>
-                        <td>0</td>
-                      </tr>
+                      {{/for}}
                     </tbody>
                   </table>
+                  {{/for}}
                 </div>
                 <div class="panel-footer">
-                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201620&amp;subj_code_in=ITM&amp;crse_numb_in=301" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
+                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201620&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
                   <a class="btn btn-info btn-sm" href="#" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
-                  <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="ITM301"><input type="hidden" name="instructor[]" value="BLANK"></form>
+                  <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="{{deptName:name}}{{courseNum:name}}"><input type="hidden" name="instructor[]" value="BLANK"></form>
                 </div>
               </div>
+              </script>
             </div>
           </section>
         </div>
@@ -196,6 +194,8 @@
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/moment/moment.js"></script>
     <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="/bower_components/elasticsearch/elasticsearch.jquery.js"></script>
+    <script src="/bower_components/jsrender/jsrender.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
