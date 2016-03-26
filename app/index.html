@@ -26,16 +26,17 @@
     <![endif]-->
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-8">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-sm-12 col-md-8">
           <section id="search-form">
             <div class="input-group">
-              <input type="text" class="form-control" id="search" placeholder="Search for...">
+              <input type="text" class="form-control" id="search" placeholder="Search courses for...">
               <span class="input-group-btn">
                 <button class="btn btn-primary" type="button">Go!</button>
-                <a class="btn btn-default" role="button" data-toggle="collapse" href="#options" aria-expanded="false" aria-controls="options">
+                <button type="button" class="btn btn-success" data-toggle="offcanvas"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+                <!-- <a class="btn btn-default" role="button" data-toggle="collapse" href="#options" aria-expanded="false" aria-controls="options">
                   Options
-                </a>
+                </a> -->
               </span>
             </div>
             <div class="row collapse" id="options">
@@ -86,14 +87,13 @@
               <h2>A course browser for Illinois Tech</h2>
               <p>
                 Pop replaces Banner's complex interface with one simple search box, except there's no search button
-                because searching is instant. It searches all courses available for the Spring 2016 semester, just
+                because searching is instant. It searches all courses available for the Fall 2016 semester, just
                 type something in the orange bar to get started! You can type pretty much anything, including:
               </p>
               <ul>
-                <li>CRNs: <a class="example" href="javascript:search('20013')">20013</a></li>
+                <li>CRNs: <a class="example" href="javascript:search('10564')">10564</a></li>
                 <li>Places: <a class="example" href="javascript:search('siegel')">siegel</a></li>
                 <li>Professors: <a class="example" href="javascript:search('twombly')">twombly</a></li>
-                <li>Semesters: <a class="example" href="javascript:search('spring')">spring</a></li>
                 <li>Departments: <a class="example" href="javascript:search('itm')">itm</a></li>
                 <li>Course titles: <a class="example" href="javascript:search('comp graphics')">comp graphics</a></li>
                 <li>Days of the week: <a class="example" href="javascript:search('mwf')">mwf</a></li>
@@ -117,31 +117,31 @@
                     <caption>Sections ({{> name}})</caption>
                     <thead>
                       <tr>
-                        <th>CRN</th>
-                        <th>Type</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Instructor(s)</th>
-                        <th>Enrolled</th>
-                        <th>Waitlisted</th>
+                        <th class="crn">CRN</th>
+                        <th class="type">Type</th>
+                        <th class="time">Time</th>
+                        <th class="location">Location</th>
+                        <th class="instructors">Instructor(s)</th>
+                        <th class="enrollment">Enrolled</th>
+                        <th class="waitlist">Waitlisted</th>
                       </tr>
                     </thead>
                     <tbody>
                       {{for sections}}
                       <!-- TODO: we want to show multiple meeting times! -->
-                      <tr id="section{{> crn }}">
-                        <td>
+                      <tr class="section" id="section{{> crn }}">
+                        <td class="crn">
                           <div class="btn-group" role="group">
-                            <a href="javascript:;" onclick="addToCart({{> crn }})" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a>
-                            <a href="https://my102.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201710&amp;crn_in={{> crn}}" target="_blank" class="btn btn-info" title="View detailed section information"><i class="glyphicon glyphicon-info-sign"></i></a>
+                            <a href="javascript:;" onclick="addToCart({{> crn }})" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a>
+                            <a href="https://my102.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201710&amp;crn_in={{> crn}}" target="_blank" class="btn btn-info btn-sm" title="View detailed section information"><i class="glyphicon glyphicon-info-sign"></i></a>
                           </div>
                         </td>
-                        <td>{{> meetings[0].type}}</td>
-                        <td>{{> meetings[0].days}} {{> meetings[0].time}}</td>
-                        <td>{{> meetings[0].where}}</td>
-                        <td>{{> meetings[0].instructors}}</td>
-                        <td><strong>{{> enrolled}}</strong>/{{> capacity}}</td>
-                        <td>{{> waitlist_enrolled}}</td>
+                        <td class="type">{{> meetings[0].type}}: {{> meetings[0].schedule_type}}</td>
+                        <td class="time">{{> meetings[0].days}} {{> meetings[0].time}}</td>
+                        <td class="location">{{> meetings[0].where}}</td>
+                        <td class="instructors">{{> meetings[0].instructors}}</td>
+                        <td class="enrollment"><strong>{{> enrolled}}</strong>/{{> capacity}}</td>
+                        <td class="waitlist">{{> waitlist_enrolled}}</td>
                       </tr>
                       {{/for}}
                     </tbody>
@@ -149,7 +149,7 @@
                   {{/for}}
                 </div>
                 <div class="panel-footer">
-                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201710&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
+                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in={{> semesters[0].code}}&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
                   <a class="btn btn-info btn-sm" href="javascript:;" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
                   <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="{{deptName:name}}{{courseNum:name}}"><input type="hidden" name="instructor[]" value="BLANK"></form>
                 </div>
@@ -158,14 +158,19 @@
             </div>
             <p id="no-results" class="hidden text-center text-warning">0 results</p>
           </section>
+          <div class="footer">
+            <p>
+              Copyright &copy; 2016 Clarify, made by <a href="https://tendian.io/" target="_blank">Eric Tendian</a>
+            </p>
+          </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-sm-8 col-md-4 sidebar-offcanvas" id="sidebar">
           <div class="fixed-container">
             <!-- <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div> -->
             <div id="cart">
               <script id="cartTemplate" type="text/x-jsrender">
               <h4>Cart</h4>
-              <ul class="list-group">
+              <ul class="list-group small">
                 {{if cart.length===0}}
                 <p>No saved courses for {{> semester}}</p>
                 {{/if}}
@@ -182,16 +187,9 @@
             <div id="semesters">
               <!-- switch between semesters here -->
             </div>
-            <hr>
-            <a href="#" class="btn btn-warning">Report a bug <i class="glyphicon glyphicon-warning-sign"></i></a>
+            <a href="https://docs.google.com/forms/d/1UUUToFeFLF-Am3t4LQmmWjMfIoAja5bXGm1XRzx609Y/viewform" target="_blank" class="btn btn-warning">Report a bug <i class="glyphicon glyphicon-warning-sign"></i></a>
           </div>
         </div>
-      </div>
-
-      <div class="footer">
-        <p>
-          Copyright &copy; 2016 Clarify, made by <a href="https://tendian.io/">Eric Tendian</a>
-        </p>
       </div>
     </div>
 
@@ -212,6 +210,7 @@
     <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
     <script src="/bower_components/elasticsearch/elasticsearch.jquery.js"></script>
     <script src="/bower_components/jsrender/jsrender.js"></script>
+    <script src="/bower_components/jquery-typewatch/jquery.typewatch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

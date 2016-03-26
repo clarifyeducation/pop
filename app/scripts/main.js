@@ -1,6 +1,10 @@
+$('[data-toggle="offcanvas"]').click(function () {
+  $('.row-offcanvas').toggleClass('active')
+});
+
 // start up the elasticsearch client
 var client = new $.es.Client({
-  hosts: 'localhost:9200'
+  hosts: 'dev.tendian.io:9200'
 });
 
 var cart = [];
@@ -26,32 +30,63 @@ renderCart();
 
 // search logic
 $('#search-form button').click(searchCourses);
-$('#search').keyup(searchCourses);
-$('input[type="checkbox"]').click(searchCourses);
+$('#search').typeWatch({
+  callback: searchCourses,
+  wait: 400,
+  highlight: true,
+  captureLength: 2
+});
+$('input[type="checkbox"]').click(function () {
+  prev_search = '';
+  searchCourses();
+});
+
+var prev_search = '';
 
 function searchCourses() {
-  $('#defaultcontent').hide();
   var keyword = $('#search').val();
+  if (prev_search == keyword) return;
+  prev_search = keyword;
+  $('#defaultcontent').hide();
   $('#results').empty();
-  if (keyword.length > 2) {
-    client.search({
-      q: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1"),
-      size: 50
-    }).then(function (body) {
+  if (keyword.length > 1) {
+    prev_search = keyword;
+    var query_config = {
+      index: 'courses',
+      body: {
+        query: {
+          filtered: {
+            query: {
+              match: {
+                _all: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1")
+              }
+            },
+            filter: {
+              term: {
+                is_offered: true
+              }
+            }
+          }
+        }
+      },
+      size: 100
+    };
+    client.search(query_config).then(function (body) {
       if (body.hits.hits.length) {
         $('#no-results').addClass('hidden');
         body.hits.hits.forEach(function (hit) {
-          if (hit._source.semesters.length || !$('#hide-no-sections').prop('checked')) {
-            hit._source.attributes = hit._source.attributes.split(', ');
-            $('#results').append(courseTmpl.render(hit._source));
-          }
+          hit._source.attributes = hit._source.attributes.split(', ');
+          $('#results').append(courseTmpl.render(hit._source));
         });
       } else {
         $('#no-results').removeClass('hidden');
       }
     }, function (error) {
+      alert('Search failed: '+error.message);
       console.trace(error.message);
     });
+  } else {
+    $('#results').empty();
   }
 }
 
