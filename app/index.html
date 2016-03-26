@@ -165,29 +165,27 @@
           </div>
         </div>
         <div class="col-sm-8 col-md-4 sidebar-offcanvas" id="sidebar">
-          <div class="fixed-container">
-            <!-- <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div> -->
-            <div id="cart">
-              <script id="cartTemplate" type="text/x-jsrender">
-              <h4>Cart</h4>
-              <ul class="list-group small">
-                {{if cart.length===0}}
-                <p>No saved courses for {{> semester}}</p>
-                {{/if}}
-                {{for cart}}
-                <li class="list-group-item">{{> name}}: {{> title}} - {{> section.crn }} <button type="button" class="close" aria-label="Close" onclick="removeFromCart({{> section.crn }})"><span aria-hidden="true">&times;</span></button></li>
-                {{/for}}
-              </ul>
-              </script>
-            </div>
-            <div class="schedule-container">
-              <h4>Your Schedule</h4>
-              <div id="schedule"></div>
-            </div>
-            <div id="semesters">
-              <!-- switch between semesters here -->
-            </div>
-            <a href="https://docs.google.com/forms/d/1UUUToFeFLF-Am3t4LQmmWjMfIoAja5bXGm1XRzx609Y/viewform" target="_blank" class="btn btn-warning">Report a bug <i class="glyphicon glyphicon-warning-sign"></i></a>
+          <a href="https://docs.google.com/forms/d/1UUUToFeFLF-Am3t4LQmmWjMfIoAja5bXGm1XRzx609Y/viewform" target="_blank" class="pull-right btn btn-info btn-sm">Feedback?</a>
+          <!-- <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div> -->
+          <div id="cart">
+            <script id="cartTemplate" type="text/x-jsrender">
+            <h4>Cart</h4>
+            <ul class="list-group small">
+              {{if cart.length===0}}
+              <p>No saved courses for {{> semester}}</p>
+              {{/if}}
+              {{for cart}}
+              <li class="list-group-item">{{> name}}: {{> title}} - {{> section.crn }} <button type="button" class="close" aria-label="Close" onclick="removeFromCart({{> section.crn }})"><span aria-hidden="true">&times;</span></button></li>
+              {{/for}}
+            </ul>
+            </script>
+          </div>
+          <div class="schedule-container">
+            <h4>Your Schedule</h4>
+            <div id="schedule"></div>
+          </div>
+          <div id="semesters">
+            <!-- switch between semesters here -->
           </div>
         </div>
       </div>

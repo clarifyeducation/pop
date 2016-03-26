@@ -99,6 +99,7 @@ function search(str) {
 function addToCart(crn) {
   removeFromCart(crn);
   client.search({
+    index: 'courses',
     q: crn
   }).then(function (body) {
     try {
