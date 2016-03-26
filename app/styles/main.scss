@@ -17,12 +17,21 @@ body {
   padding-bottom: 20px;
 }
 
+.fixed-container {
+  position: fixed;
+  padding-right: 1em;
+}
+
 #search-form {
   padding-bottom: 1em;
 }
 
-#schedule .fc-head, #schedule .fc-toolbar {
-    display: none;
+#schedule .fc-toolbar {
+  display: none;
+}
+
+.fc-unthemed .fc-today {
+  background: inherit;
 }
 
 .course .panel-body {

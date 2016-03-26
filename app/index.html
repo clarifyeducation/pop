@@ -81,7 +81,7 @@
             </div>
           </section>
           <section id="search-results">
-            <div id="defaultcontent" class="hidden">
+            <div id="defaultcontent">
               <h1>Pop</h1>
               <h2>A course browser for Illinois Tech</h2>
               <p>
@@ -90,16 +90,16 @@
                 type something in the orange bar to get started! You can type pretty much anything, including:
               </p>
               <ul>
-                <li>CRNs: <a class="example" href="javascript:search.go('20013')">20013</a></li>
-                <li>Places: <a class="example" href="javascript:search.go('siegel')">siegel</a></li>
-                <li>Professors: <a class="example" href="javascript:search.go('twombly')">twombly</a></li>
-                <li>Semesters: <a class="example" href="javascript:search.go('spring')">spring</a></li>
-                <li>Departments: <a class="example" href="javascript:search.go('itm')">itm</a></li>
-                <li>Course titles: <a class="example" href="javascript:search.go('comp graphics')">comp graphics</a></li>
-                <li>Days of the week: <a class="example" href="javascript:search.go('mwf')">mwf</a></li>
-                <li>Course descriptions: <a class="example" href="javascript:search.go('leadership')">leadership</a></li>
-                <li>Course abbreviations: <a class="example" href="javascript:search.go('econ211')">econ211</a></li>
-                <li>Any combination of the above: <a class="example" href="javascript:search.go('hist comp mw')">hist comp mw</a></li>
+                <li>CRNs: <a class="example" href="javascript:search('20013')">20013</a></li>
+                <li>Places: <a class="example" href="javascript:search('siegel')">siegel</a></li>
+                <li>Professors: <a class="example" href="javascript:search('twombly')">twombly</a></li>
+                <li>Semesters: <a class="example" href="javascript:search('spring')">spring</a></li>
+                <li>Departments: <a class="example" href="javascript:search('itm')">itm</a></li>
+                <li>Course titles: <a class="example" href="javascript:search('comp graphics')">comp graphics</a></li>
+                <li>Days of the week: <a class="example" href="javascript:search('mwf')">mwf</a></li>
+                <li>Course descriptions: <a class="example" href="javascript:search('leadership')">leadership</a></li>
+                <li>Course abbreviations: <a class="example" href="javascript:search('econ211')">econ211</a></li>
+                <li>Any combination of the above: <a class="example" href="javascript:search('hist comp mw')">hist comp mw</a></li>
               </ul>
             </div>
 
@@ -130,7 +130,12 @@
                       {{for sections}}
                       <!-- TODO: we want to show multiple meeting times! -->
                       <tr id="section{{> crn }}">
-                        <td><a href="#" onclick="addToCart({{> crn }})" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a></td>
+                        <td>
+                          <div class="btn-group" role="group">
+                            <a href="javascript:;" onclick="addToCart({{> crn }})" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a>
+                            <a href="https://my102.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201710&amp;crn_in={{> crn}}" target="_blank" class="btn btn-info" title="View detailed section information"><i class="glyphicon glyphicon-info-sign"></i></a>
+                          </div>
+                        </td>
                         <td>{{> meetings[0].type}}</td>
                         <td>{{> meetings[0].days}} {{> meetings[0].time}}</td>
                         <td>{{> meetings[0].where}}</td>
@@ -144,36 +149,41 @@
                   {{/for}}
                 </div>
                 <div class="panel-footer">
-                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201620&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
-                  <a class="btn btn-info btn-sm" href="#" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
+                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201710&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
+                  <a class="btn btn-info btn-sm" href="javascript:;" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
                   <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="{{deptName:name}}{{courseNum:name}}"><input type="hidden" name="instructor[]" value="BLANK"></form>
                 </div>
               </div>
               </script>
             </div>
+            <p id="no-results" class="hidden text-center text-warning">0 results</p>
           </section>
         </div>
         <div class="col-lg-4">
-          <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div>
-          <div id="cart">
-            <script id="cartTemplate" type="text/x-jsrender">
-            <h4>Cart</h4>
-            <ul class="list-group">
-              {{if cart.length===0}}
-              <p>No saved courses for {{> semester}}</p>
-              {{/if}}
-              {{for cart}}
-              <li class="list-group-item">{{> name}}: {{> title}} - {{> section.crn }} <button type="button" class="close" aria-label="Close" onclick="removeFromCart({{> section.crn }})"><span aria-hidden="true">&times;</span></button></li>
-              {{/for}}
-            </ul>
-            </script>
-          </div>
-          <div class="schedule-container">
-            <h4>Your Schedule</h4>
-            <div id="schedule"></div>
-          </div>
-          <div id="semesters">
-            <!-- switch between semesters here -->
+          <div class="fixed-container">
+            <!-- <div id="register-section">Ready to register? <a href="javascript:cart.checkCRNs()">Check if these sections are full</a></div> -->
+            <div id="cart">
+              <script id="cartTemplate" type="text/x-jsrender">
+              <h4>Cart</h4>
+              <ul class="list-group">
+                {{if cart.length===0}}
+                <p>No saved courses for {{> semester}}</p>
+                {{/if}}
+                {{for cart}}
+                <li class="list-group-item">{{> name}}: {{> title}} - {{> section.crn }} <button type="button" class="close" aria-label="Close" onclick="removeFromCart({{> section.crn }})"><span aria-hidden="true">&times;</span></button></li>
+                {{/for}}
+              </ul>
+              </script>
+            </div>
+            <div class="schedule-container">
+              <h4>Your Schedule</h4>
+              <div id="schedule"></div>
+            </div>
+            <div id="semesters">
+              <!-- switch between semesters here -->
+            </div>
+            <hr>
+            <a href="#" class="btn btn-warning">Report a bug <i class="glyphicon glyphicon-warning-sign"></i></a>
           </div>
         </div>
       </div>

@@ -30,23 +30,34 @@ $('#search').keyup(searchCourses);
 $('input[type="checkbox"]').click(searchCourses);
 
 function searchCourses() {
+  $('#defaultcontent').hide();
   var keyword = $('#search').val();
   $('#results').empty();
   if (keyword.length > 2) {
     client.search({
-      q: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1")
+      q: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1"),
+      size: 50
     }).then(function (body) {
-      body.hits.hits.forEach(function (hit) {
-        if (hit._source.semesters.length || !$('#hide-no-sections').prop('checked')) {
-          hit._source.attributes = hit._source.attributes.split(', ');
-          $('#results').append(courseTmpl.render(hit._source));
-        }
-      });
-      //
+      if (body.hits.hits.length) {
+        $('#no-results').addClass('hidden');
+        body.hits.hits.forEach(function (hit) {
+          if (hit._source.semesters.length || !$('#hide-no-sections').prop('checked')) {
+            hit._source.attributes = hit._source.attributes.split(', ');
+            $('#results').append(courseTmpl.render(hit._source));
+          }
+        });
+      } else {
+        $('#no-results').removeClass('hidden');
+      }
     }, function (error) {
       console.trace(error.message);
     });
   }
+}
+
+function search(str) {
+  $('#search').val(str);
+  window.setTimeout(searchCourses, 50);
 }
 
 // add to cart
@@ -65,7 +76,20 @@ function addToCart(crn) {
       cart.push(result);
       renderCart();
 
-
+      result.section.meetings.forEach(function (meeting, index) {
+        if (meeting.time != 'TBA') {
+          var dates = _generateEvent(meeting);
+          var event = {
+            id: crn + '_' + index,
+            title: result.name + ' (' + crn + ')',
+            start: dates.start,
+            end: dates.end,
+            dow: dates.dow
+          };
+          events.push(event);
+        }
+      });
+      renderCalendar();
     } catch (e) {
       alert('Sorry, we were unable to add that course to your cart. Please try again.');
       console.trace(e);
@@ -75,12 +99,37 @@ function addToCart(crn) {
   });
 }
 
+function _generateEvent(meeting) {
+  var dow = [];
+  for (var index = 0; index < meeting.days.length; index++) {
+    dow.push('UMTWRFS'.indexOf(meeting.days.charAt(index)));
+  }
+  var start = _timeFromString(meeting.time.split(' - ')[0]);
+  var end = _timeFromString(meeting.time.split(' - ')[1]);
+  return {start: start, end: end, dow: dow};
+}
+
+function _timeFromString(str) {
+  var isPM = (str.substring(str.length - 2) == 'pm');
+  var digits = str.substring(0, str.length - 2).split(':');
+  var hours = (digits[0] != '12' ? parseInt(digits[0], 10) : 0);
+  var minutes = (digits.length > 1 ? parseInt(digits[1], 10) : 0);
+  return (hours + (isPM ? 12 : 0)) + ':' + (minutes < 10 ? '0' + minutes : minutes);
+}
+
 // remove from cart
 function removeFromCart(crn) {
   cart.forEach(function (course, index) {
     if (crn === course.section.crn) {
       cart.splice(index, 1);
       renderCart();
+
+      events.forEach(function (event, idx) {
+        if (event.id.indexOf(crn)===0) {
+          events.splice(idx, 1);
+        }
+      });
+      renderCalendar();
     }
   });
 }
@@ -90,26 +139,23 @@ function removeFromCart(crn) {
 var events = [];
 
 function renderCalendar() {
-  // add logic to adjust mintime and maxtime
-  $('#schedule').fullCalendar({
-    header: {
-      left: '',
-      center: '',
-      right: ''
-    },
-    weekends: false,
-    defaultView: 'agendaWeek',
-    allDaySlot: false,
-    minTime: "08:00:00",
-    maxTime: "18:00:00",
-    editable: false,
-    events: events
-  });
+  $('#schedule').fullCalendar('removeEventSource', events);
+  $('#schedule').fullCalendar('addEventSource', events);
 }
 
-// {
-//   id: 999,
-//   title: 'Repeating Event',
-//   start: '2016-03-23T10:30:00',
-//   end:   '2016-03-23T12:30:00'
-// }
+// add logic to adjust mintime and maxtime
+$('#schedule').fullCalendar({
+  header: {
+    left: '',
+    center: '',
+    right: ''
+  },
+  columnFormat: 'ddd',
+  weekends: false,
+  defaultView: 'agendaWeek',
+  allDaySlot: false,
+  minTime: "08:00:00",
+  maxTime: "21:30:00",
+  editable: false,
+  events: events
+});
