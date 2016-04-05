@@ -2,7 +2,7 @@
 *.pyc
 courses/banner.pickle
 courses/courses.js
-www/courses.js
-www/courses.js.gz
+www/courses*.js
+www/courses*.js.gz
 www/soda.js
 www/data
