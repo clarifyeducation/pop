@@ -133,7 +133,7 @@
                         <td class="crn">
                           <div class="btn-group" role="group">
                             <a href="javascript:;" onclick="addToCart({{> crn }})" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i> {{> crn}}</a>
-                            <a href="https://my102.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201710&amp;crn_in={{> crn}}" target="_blank" class="btn btn-info btn-sm" title="View detailed section information"><i class="glyphicon glyphicon-info-sign"></i></a>
+                            <a href="https://ssb.iit.edu/banr/bwckschd.p_disp_detail_sched?term_in=201710&amp;crn_in={{> crn}}" target="_blank" class="btn btn-info btn-sm" title="View detailed section information"><i class="glyphicon glyphicon-info-sign"></i></a>
                           </div>
                         </td>
                         <td class="type">{{> meetings[0].type}}: {{> meetings[0].schedule_type}}</td>
@@ -149,7 +149,7 @@
                   {{/for}}
                 </div>
                 <div class="panel-footer">
-                  <a class="btn btn-info btn-sm" href="https://my102.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in={{> semesters[0].code}}&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
+                  <a class="btn btn-info btn-sm" href="https://ssb.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in={{> semesters[0].code}}&amp;subj_code_in={{deptName:name}}&amp;crse_numb_in={{courseNum:name}}" target="_blank" title="Opens in a new window"><i class="glyphicon glyphicon-book"></i> View in course catalog</a>
                   <a class="btn btn-info btn-sm" href="javascript:;" onclick="$(this).parents('div.course').find('form').submit()"><i class="glyphicon glyphicon-star"></i> View course evaluations</a>
                   <form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="{{deptName:name}}{{courseNum:name}}"><input type="hidden" name="instructor[]" value="BLANK"></form>
                 </div>
