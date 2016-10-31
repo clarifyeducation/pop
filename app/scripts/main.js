@@ -24,7 +24,7 @@ $.views.converters('courseNum', function (val) {
 var cartTmpl = $.templates('#cartTemplate');
 
 function renderCart() {
-  $('#cart').html(cartTmpl.render({cart: cart, semester: "Fall 2016"}));
+  $('#cart').html(cartTmpl.render({cart: cart, semester: "Spring 2017"}));
 }
 renderCart();
 
@@ -52,22 +52,22 @@ function searchCourses() {
   if (keyword.length > 1) {
     prev_search = keyword;
     var query_config = {
-      index: 'courses',
+      index: 'courses-spring2017',
       body: {
         query: {
-          filtered: {
-            query: {
-              match: {
-                _all: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1")
-              }
-            },
-            filter: {
-              term: {
-                is_offered: true
-              }
-            }
+          bool: {
+            must: [
+              { match: { _all: keyword.replace(/([\!\*\+\&\|\(\)\[\]\{\}\^\~\?\:\"\/])/g, "\\$1") }}
+            ],
+            filter: [
+              { term: { is_offered: true }}
+            ]
           }
-        }
+        },
+        sort: [
+          { "name.keyword": "asc" },
+          "_score"
+        ]
       },
       size: 100
     };
