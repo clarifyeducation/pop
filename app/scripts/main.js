@@ -6,6 +6,7 @@ $('[data-toggle="offcanvas"]').click(function () {
 var client = new $.es.Client({
   hosts: 'dev.tendian.io:9200'
 });
+var indexName = 'courses-spring2017';
 
 var cart = [];
 
@@ -52,7 +53,7 @@ function searchCourses() {
   if (keyword.length > 1) {
     prev_search = keyword;
     var query_config = {
-      index: 'courses-spring2017',
+      index: indexName,
       body: {
         query: {
           bool: {
@@ -99,7 +100,7 @@ function search(str) {
 function addToCart(crn) {
   removeFromCart(crn);
   client.search({
-    index: 'courses',
+    index: indexName,
     q: crn
   }).then(function (body) {
     try {
