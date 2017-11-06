@@ -6,7 +6,7 @@ $('[data-toggle="offcanvas"]').click(function () {
 var client = new $.es.Client({
   hosts: 'dev.tendian.io:9200'
 });
-var indexName = 'courses-spring2017';
+var indexName = 'courses-spring2018';
 
 var cart = [];
 
@@ -25,7 +25,7 @@ $.views.converters('courseNum', function (val) {
 var cartTmpl = $.templates('#cartTemplate');
 
 function renderCart() {
-  $('#cart').html(cartTmpl.render({cart: cart, semester: "Spring 2017"}));
+  $('#cart').html(cartTmpl.render({cart: cart, semester: "Spring 2018"}));
 }
 renderCart();
 
