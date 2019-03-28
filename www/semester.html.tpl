@@ -3,8 +3,13 @@
   <title>Pop</title>
   <meta name="description" content="The fastest course browser at Illinois Tech" />
   <meta name="viewport" content="width=750" />
+  <meta property="og:title" content="Pop Course Search" />
+  <meta property="og:description" content="The fastest course browser at Illinois Tech" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://pop.weclarify.com/pop-v1.0.png" />
+  <meta property="og:locale" content="en_US" />
   <link rel="stylesheet" type="text/css" href="style.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="jquery.color.js"></script>
 </head><body>
   <div id="background"><div></div></div>
@@ -57,7 +62,7 @@
       <p id="tagline">A course browser for Illinois Tech</p>
       <h3 id="mobilenote">Hey! We're not yet optimized for smartphones. For the best experience view the site on a laptop or desktop. Thanks!</h3>
       <noscript><h3>Pop needs JavaScript to work. Please enable JavaScript and click refresh.</h3></noscript>
-      <p>Pop replaces Banner's complex interface with one simple search box, except there's no search button because searching is instant. It searches all courses available for the Fall 2016 semester, just type something in the orange bar to get started! You can type pretty much anything, including:</p>
+      <p>Pop replaces Banner's complex interface with one simple search box, except there's no search button because searching is instant. It searches all courses available for the $SEMESTER_NAME semester, just type something in the orange bar to get started! You can type pretty much anything, including:</p>
       <ul>
         <li>CRNs: <a class="example" href="javascript:search.go('20013')">20013</a></li>
         <li>Places: <a class="example" href="javascript:search.go('siegel')">siegel</a></li>
@@ -77,7 +82,7 @@
     <div id="dynamiccontent"></div>
   </div>
 
-  <script type="text/javascript" src="courses_fall2016.js"></script>
+  <script type="text/javascript" src="$SEMESTER_DATA"></script>
   <script type="text/javascript" src="soda.js"></script>
 
   <script>

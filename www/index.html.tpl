@@ -35,28 +35,28 @@
         </header>
         <main>
             <p>
-                Welcome! Clarify is ready for Spring and Summer 2017 registration at Illinois Tech. We hope you are too.
-                This time, we've completely rebuilt Pop to make it more mobile-friendly with a brand-new interface
+                Welcome! Clarify is ready for registration at Illinois Tech. We hope you are too.
+                <!--This time, we've completely rebuilt Pop to make it more mobile-friendly with a brand-new interface
                 and a more robust search experience. Many of the features from Pop 1.0 are in Pop 1.5. While Pop 1.5
-                is still in beta, we encourage you to try it out and give us feedback. We think you'll like it.
+                is still in beta, we encourage you to try it out and give us feedback. We think you'll like it.-->
             </p>
             <p>Click one of the following links to <strong>start searching for your courses:</strong></p>
             <ul>
-                <li><a href="spring2018.html">Search Spring 2018 Courses using Pop 1.0</a></li>
-                <li><a href="v1.5/">Search Spring 2018 Courses using Pop 1.5 (BETA)</a></li>
-                <li><a href="fall2017.html">Search Fall 2017 Courses using Pop 1.0</a></li>
+$LIST_ITEMS
+                <!--<li><a href="v1.5/">Search Spring 2018 Courses using Pop 1.5 (BETA)</a></li>-->
             </ul>
-            <figure>
+            <p>Has the schedule been published for a new semester but it's not up on Pop yet? <a href="mailto:eric@weclarify.com">Contact us! eric [at] weclarify [dot] com</a></p>
+            <!--<figure>
                 <figcaption>Pop 1.5</figcaption>
                 <img src="pop-v1.5.png" alt="Pop 1.5 screenshot">
-            </figure>
+            </figure>-->
             <figure>
                 <figcaption>Pop 1.0</figcaption>
                 <img src="pop-v1.0.png" alt="Pop 1.0 screenshot">
             </figure>
         </main>
         <footer>
-            <p>Copyright &copy; 2016 Clarify</p>
+            <p>Copyright &copy; 2015-2019 Clarify</p>
         </footer>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

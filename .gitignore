@@ -6,3 +6,4 @@ www/courses*.js
 www/courses*.js.gz
 www/soda.js
 www/data
+www/*.html
