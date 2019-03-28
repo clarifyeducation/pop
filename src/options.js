@@ -8,12 +8,12 @@ var options = {
   shouldHideCoursesWithoutSections: true,
 
   refresh: function() {
-    this.courseDetail = 1 * $('#result-sm').attr('checked') + 2 * $('#result-med').attr('checked') + 3 * $('#result-big').attr('checked');
-    this.shouldShowLinks = 1 * $('#show-links').attr('checked');
-    this.shouldSearchSections = 1 * $('#search-sect').attr('checked');
-    this.shouldSearchDescriptions = 1 * $('#search-desc').attr('checked');
-    this.shouldCollapseSimilarSections = 1 * $('#collapse-sim').attr('checked');
-    this.shouldHideCoursesWithoutSections = 1 * $('#hide-no-sections').attr('checked');
+    this.courseDetail = 1 * $('#result-sm').prop('checked') + 2 * $('#result-med').prop('checked') + 3 * $('#result-big').prop('checked');
+    this.shouldShowLinks = 1 * $('#show-links').prop('checked');
+    this.shouldSearchSections = 1 * $('#search-sect').prop('checked');
+    this.shouldSearchDescriptions = 1 * $('#search-desc').prop('checked');
+    this.shouldCollapseSimilarSections = 1 * $('#collapse-sim').prop('checked');
+    this.shouldHideCoursesWithoutSections = 1 * $('#hide-no-sections').prop('checked');
     this._saveToCookie();
   },
 

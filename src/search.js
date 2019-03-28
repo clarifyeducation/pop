@@ -207,7 +207,7 @@ var search = {
         html += '<h2>' + name + ': ' + title + '</h2>';
         if (options.shouldShowLinks) {
           html += '<p style="text-align:center;">';
-          html += ' <a href="https://ssb.iit.edu/banr/bwckctlg.p_disp_course_detail?cat_term_in=201720&subj_code_in=' + course.name.split(' ')[0] + '&crse_numb_in=' + course.name.split(' ')[1] + '" target="_blank" title="Opens in a new window">View in course catalog</a> / <a href="#" onclick="$(this).parents(\'div.course\').find(\'form\').submit()">View course evaluations</a> (must login to MyIIT first)<!-- / <strong><a href="./coursetasting.html" target="_blank">Find others who took this course</a></strong>-->';
+          html += ' <a href="https://ssb.iit.edu/bnrprd/bwckctlg.p_disp_course_detail?cat_term_in='+semester_codes[semesters[0]]+'&subj_code_in=' + course.name.split(' ')[0] + '&crse_numb_in=' + course.name.split(' ')[1] + '" target="_blank" title="Opens in a new window">View in course catalog</a> / <a href="#" onclick="$(this).parents(\'div.course\').find(\'form\').submit()">View course evaluations</a> (must login to MyIIT first)<!-- / <strong><a href="./coursetasting.html" target="_blank">Find others who took this course</a></strong>-->';
           html += '</p>';
           html += '<form action="http://retention.iit.edu/course_eval_summary_result.php" method="post" target="_blank"><input type="hidden" name="course[]" value="' + course.name.replace(' ','') + '"><input type="hidden" name="instructor[]" value="BLANK"></form>';
         }
