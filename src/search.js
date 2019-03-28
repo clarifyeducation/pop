@@ -78,7 +78,7 @@ var search = {
   _textForSection: function(section) {
     if (section.meetings.length == 0)
       return section.type;
-    var text = section.type;
+    var text = section.schedule_type + ' (' + section.type + ')';
     if (section.special_title && section.special_title != 'Laboratory')
       text = section.special_title + ' ~ ' + text;
     text = section.available + ' seats avail. | ' + text;
