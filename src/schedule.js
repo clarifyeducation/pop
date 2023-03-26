@@ -6,7 +6,7 @@ var schedule = {
   },
 
   _timeFromString: function(str) {
-    var isPM = (str.substring(str.length - 2) == 'pm');
+    var isPM = (str.substring(str.length - 2).toLowerCase() == 'pm');
     var digits = str.substring(0, str.length - 2).split(':');
     var hours = (digits[0] != '12' ? parseInt(digits[0], 10) : 0);
     var minutes = (digits.length > 1 ? parseInt(digits[1], 10) / 60 : 0);
