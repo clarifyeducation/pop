@@ -37,7 +37,7 @@ var cart = {
         count++;
       count = count ? ' (' + count + ')' : '';
       if (i > 0) html += ' ~ ';
-      
+
       html += '<div class="semester">';
       if (semester == currentSemester) html += '<b>' + semester + count + '</b>';
       else html += '<a href="javascript:cart.setSemester(\'' + semester + '\')">' + semester + count + '</a>';
@@ -185,7 +185,7 @@ var cart = {
         'top': -11
       }, 100);
     }
-    
+
     $('#search').focus();
   },
 
@@ -195,7 +195,7 @@ var cart = {
 
     // update the current semester with the new course count and refresh the list
     this.setSemester(this._currentSemester);
-    
+
     $('#search').focus();
   },
 
@@ -207,9 +207,16 @@ var cart = {
     for (var i in this._semesterCRNs[this._currentSemester]) {
       for (var j = 0; j < this._semesterCRNs[this._currentSemester][i].length; j++) {
         var crn = this._semesterCRNs[this._currentSemester][i][j];
-        $.get('https://cors-anywhere.herokuapp.com/https://ssb.iit.edu/bnrprd/bwckschd.p_disp_detail_sched?term_in='+term_id+'&crn_in='+this._semesterCRNs[this._currentSemester][i][j], function (data, status, jqxhr) {
-          var seats = data.match(/<TR>\n<TH CLASS="ddlabel" scope="row" ><SPAN class="fieldlabeltext">Seats<\/SPAN><\/TH>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<\/TR>/);
-          var waitlist = data.match(/<TR>\n<TH CLASS="ddlabel" scope="row" ><SPAN class="fieldlabeltext">Waitlist Seats<\/SPAN><\/TH>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<TD CLASS="dddefault">([0-9]+)<\/TD>\n<\/TR>/);
+        $.get('https://iit-cors-proxy.erictendian.workers.dev/corsproxy/?term_in='+term_id+'&crn_in='+this._semesterCRNs[this._currentSemester][i][j], function (data, status, jqxhr) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(data, 'text/html');
+
+          var seatsRow = Array.from(doc.querySelectorAll('th')).find(th => th.textContent.includes("Seats"))?.parentElement;
+          var waitlistRow = Array.from(doc.querySelectorAll('th')).find(th => th.textContent.includes("Waitlist Seats"))?.parentElement;
+
+          var seats = seatsRow ? Array.from(seatsRow.querySelectorAll('td.dddefault')).map(td => parseInt(td.textContent, 10)) : [0, 0, 0];
+          var waitlist = waitlistRow ? Array.from(waitlistRow.querySelectorAll('td.dddefault')).map(td => parseInt(td.textContent, 10)) : [0, 0, 0];
+
           if (Number.parseInt(seats[3])===0) {
             $('strong.fullalert').remove();
             $('a[id$="-cart-'+crn+'-link"]').parents('.section').append(' <strong class="fullalert">(FULL - ' + waitlist[2] + ' on waitlist)</strong>');

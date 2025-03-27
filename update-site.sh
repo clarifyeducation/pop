@@ -16,4 +16,4 @@ done
 cat index.html.tpl | envsubst > index.html
 
 # Upload assets
-s3cmd -c /app/.s3cfg put * s3://pop.weclarify.com -PMF --no-mime-magic --recursive
+s3cmd -c /app/.s3cfg sync . s3://pop.weclarify.com --no-mime-magic --recursive

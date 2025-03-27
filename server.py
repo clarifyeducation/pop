@@ -1,13 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class MyServer(BaseHTTPRequestHandler):
     def serveFile(self, path):
         try:
-            f = open('./www' + path)
-            self.wfile.write(f.read())
-            f.close()
+            with open('./www' + path, 'rb') as f:
+                self.wfile.write(f.read())
             return True
         except IOError:
             return False
@@ -34,7 +33,11 @@ class MyServer(BaseHTTPRequestHandler):
 
         if not self.serveFile(self.path):
             if not self.serveFile(self.path + 'index.html'):
-                self.wfile.write('<h1>Error 404</h1>')
+                self.wfile.write(b'<h1>Error 404</h1>')
 
-print 'http://localhost:8000/'
-HTTPServer(('', 8000), MyServer).serve_forever()
+def main():
+    print('Serving at http://localhost:8000/')
+    HTTPServer(('', 8000), MyServer).serve_forever()
+
+if __name__ == '__main__':
+    main()
